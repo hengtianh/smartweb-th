@@ -13,13 +13,16 @@ public final class PropUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PropUtil.class);
 
-    private static final Properties prop = new Properties();
+    public static final Properties prop = new Properties();
 
+    static {
+        loadProp();
+    }
     public static Properties loadProp() {
-        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(ConfigConstant.CONFIG_FILE);
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("webconfig-default.properties");
         if (in == null) {
             try {
-                throw new FileNotFoundException(ConfigConstant.CONFIG_FILE + " not found");
+                throw new FileNotFoundException("webconfig.properties" + " not found");
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -33,7 +36,7 @@ public final class PropUtil {
             try {
                 in.close();
             } catch (IOException e) {
-                LOGGER.debug(ConfigConstant.CONFIG_FILE + " inputstream has not being closed");
+                LOGGER.debug("webconfig.properties" + " inputstream has not being closed");
                 in = null;
             }
         }

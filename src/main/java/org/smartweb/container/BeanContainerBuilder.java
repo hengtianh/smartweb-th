@@ -11,7 +11,7 @@ import org.smartweb.web.WebController;
  **/
 public final class BeanContainerBuilder {
 
-    private static Class<?>[] containers = new Class<?>[]{BeanContainer.class,WebController.class};
+    private static Class<?>[] containers = new Class<?>[]{BeanContainer.class, AopBuilder.class,WebController.class};
 
     /**
      * @Description 构建bean容器

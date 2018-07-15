@@ -2,9 +2,11 @@ package org.smartweb.container;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.smartweb.Annotation.Aspect;
 import org.smartweb.Annotation.AutoInject;
 import org.smartweb.Annotation.Controller;
 import org.smartweb.Annotation.Service;
+import org.smartweb.aop.Proxy;
 import org.smartweb.util.ClassUtil;
 import org.smartweb.util.ConfigUtil;
 
@@ -24,13 +26,15 @@ public final class BeanContainer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BeanContainer.class);
 
-    private static final Set<Class<?>> beanSet = new HashSet<Class<?>>(0);
+    static final Set<Class<?>> beanSet = new HashSet<Class<?>>(0);
 
     private static final Set<Class<?>> controllerSet = new HashSet<Class<?>>(0);
 
     private static final Set<Class<?>> serviceSet = new HashSet<Class<?>>(0);
 
-    private static final Map<Class<?>,Object> beanMap = new HashMap<Class<?>, Object>();
+    static final Set<Class<?>> aspectSet = new HashSet<Class<?>>(0);
+
+    static final Map<Class<?>,Object> beanMap = new HashMap<Class<?>, Object>();
 
     static {
         initBeanSet();
@@ -51,10 +55,13 @@ public final class BeanContainer {
                 controllerSet.add(cls);
             } else if (cls.isAnnotationPresent(Service.class)) {
                 serviceSet.add(cls);
+            } else if (cls.isAnnotationPresent(Aspect.class)) {
+                aspectSet.add(cls);
             }
         }
         beanSet.addAll(controllerSet);
         beanSet.addAll(serviceSet);
+        beanSet.addAll(aspectSet);
     }
 
     /**
@@ -120,4 +127,5 @@ public final class BeanContainer {
     public static Set<Class<?>> getControllerSet() {
         return controllerSet;
     }
+
 }

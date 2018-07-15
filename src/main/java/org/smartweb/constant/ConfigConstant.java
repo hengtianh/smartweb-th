@@ -7,4 +7,9 @@ public interface ConfigConstant {
     String BASE_PACKAGE = "smartweb.framework.app.base_package";
     String JSP_PATH = "smartweb.framework.app.jsp_path";
     String ASSET = "smartweb.framework.app.asset";
+
+    String DRIVER = "jdbc.driver";
+    String URL = "jdbc.url";
+    String USERNAME = "jdbc.username";
+    String PASSWORD = "jdbc.password";
 }

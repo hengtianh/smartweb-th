@@ -27,7 +27,7 @@ import java.util.Map;
  * @USER takou
  * @CREATE 2018/4/5
  **/
-@WebServlet(loadOnStartup = 0,urlPatterns = "/*")
+@WebServlet(loadOnStartup = 0,urlPatterns = "*.do")
 public class DispatcherServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherServlet.class);
@@ -46,7 +46,7 @@ public class DispatcherServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //获得请求的方法和请求的资源
         String method = req.getMethod().toLowerCase();
-        String resource = req.getPathInfo();
+        String resource = req.getServletPath();
 
         //获得处理请求的action
         Handler handler = WebController.getHandler(method,resource);
@@ -63,7 +63,7 @@ public class DispatcherServlet extends HttpServlet {
         Object object = null;
         try {
             ModelAndView view = new ModelAndView();
-            view.setParam(param);
+            view.setReqParam(param);
             object = reqMethod.invoke(obj,view);
         } catch (IllegalAccessException e) {
             LOGGER.error(reqMethod.getName() + " illegal access",e);

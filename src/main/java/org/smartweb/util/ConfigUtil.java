@@ -48,4 +48,25 @@ public final class ConfigUtil {
         return PropUtil.getString(ConfigConstant.ASSET,"/asset");
     }
 
+    public static String getJdbcDriver() {
+        return PropUtil.getString(ConfigConstant.DRIVER,"/jdbc.driver");
+    }
+
+    public static String getJdbcUrl() {
+        return PropUtil.getString(ConfigConstant.URL,"/jdbc.driver");
+    }
+
+    public static String getJdbcUSERNAME() {
+        return PropUtil.getString(ConfigConstant.USERNAME,"/jdbc.driver");
+    }
+
+    public static String getJdbcPASSWORD() {
+        return PropUtil.getString(ConfigConstant.PASSWORD,"/jdbc.driver");
+    }
+
+    public static String getJdbcConfigFile() {
+        return PropUtil.getString(ConfigConstant.CONFIG_FILE,"/jdbc.driver");
+    }
+
+
 }

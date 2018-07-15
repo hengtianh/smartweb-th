@@ -25,17 +25,20 @@ public class ModelAndView {
 
     private String resPath;
 
-    private Map<String,String[]> param;
+    private Map<String,String[]> reqParam;
 
     private Map<String,Object> models = new HashMap<String, Object>();
 
     public ModelAndView(HttpServletRequest request, String resPath) {
         this.request = request;
         this.resPath = resPath;
+        this.reqParam = request.getParameterMap();
     }
 
     public ModelAndView() {
     }
+
+
 
     public void forward() {
         if (resPath.startsWith("/")) {
@@ -82,7 +85,11 @@ public class ModelAndView {
         this.response = response;
     }
 
-    public void setParam(Map<String, String[]> param) {
-        this.param = param;
+    public Map<String, String[]> getReqParam() {
+        return reqParam;
+    }
+
+    public void setReqParam(Map<String, String[]> reqParam) {
+        this.reqParam = reqParam;
     }
 }
