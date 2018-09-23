@@ -16,14 +16,11 @@ public class ProxyFactory {
 
     @SuppressWarnings("unchecked")
     public static <T> T createProxy(Class<?> targetClass, List<Proxy> proxyList) {
-        return (T) Enhancer.create(targetClass, new MethodInterceptor() {
-            @Override
-            public Object intercept(Object obj, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-                if (chain == null) {
-                    chain = new ProxyChain(targetClass, obj, method, methodProxy, objects, proxyList);
-                }
-                return chain.doProxyChain();
+        return (T) Enhancer.create(targetClass, (MethodInterceptor) (obj, method, objects, methodProxy) -> {
+            if (chain == null) {
+                chain = new ProxyChain(targetClass, obj, method, methodProxy, objects, proxyList);
             }
+            return chain.doProxyChain();
         });
     }
 }
